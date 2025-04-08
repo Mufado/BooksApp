@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-BooksApp.WorkerService-f3e36579-1874-4fcd-adfb-70db535ed010</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire" Version="1.8.18" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.18" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.2.25163.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BooksApp.Jobs\BooksApp.Jobs.csproj" />
+    <ProjectReference Include="..\BooksApp.Persistence\BooksApp.Persistence.csproj" />
+  </ItemGroup>
+</Project>

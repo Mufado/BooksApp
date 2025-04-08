@@ -1,0 +1,11 @@
+@import './base.css';
+
+#app {
+  margin: 0 auto;
+}
+
+body {
+  display: flex;
+  place-items: center;
+}
+
