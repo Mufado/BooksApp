@@ -18,7 +18,7 @@ namespace BooksApp.Jobs
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync(_configuration.GetSection("BookApi:UpsertJobUrl").Value, cancellationToken);
+            var response = await client.GetAsync(GetGoogleBooksUrlWithSearchParameters(), cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
@@ -42,6 +42,19 @@ namespace BooksApp.Jobs
                     await _mediator.Send(command, cancellationToken);
                 }
             }
+        }
+
+        private string GetGoogleBooksUrlWithSearchParameters()
+        {
+            var paramsQuantity = Random.Shared.Next(1, 5);
+            
+            var searchParameters = _configuration.GetSection("BookApi:SearchParameters").Get<string[]>()!;
+
+            var randomParameters = Random.Shared.GetItems(searchParameters, paramsQuantity);
+
+            var url = _configuration.GetValue<string>("BookApi:UpsertJobUrl") + "?q=" + string.Join("+", randomParameters);
+
+            return url;
         }
 
         private async Task<List<GoogleBookItemDto>?> DeserializeBookItems(HttpResponseMessage response, CancellationToken cancellationToken)
