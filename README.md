@@ -1,5 +1,5 @@
 # BooksApp
-
+Clean Architecture + DDD project that saves and show data from Google Books API.
 ## Prerequisites
 
 Your machine has to have installed:
@@ -76,6 +76,46 @@ info: Hangfire.Server.BackgroundServerProcess[0]
 > In case you have problems with the Web project, you may need to manually install the project dependencies.
 > To do that, open a CLI of your choice, track it to the `/booksapp.web` directory inside the project and run the command: `npm install`.
 > After that, you should be able to execute `run.cmd` normally, or `dotnet run --project "booksapp.web/booksapp.web.esproj"` if you want to execute the Web project only.
+
+### Applications settings
+
+To ensure the applications are integrated correctly between them and the database, you can check the `appsettings.json` files. There are two settings, [one](BooksApp.WorkerService/appsettings.json) for the Worker Service and [other](BooksApp.WorkerService/appsettings.json) for the Web API:
+```json
+// Web API
+{
+  "ConnectionStrings": {
+    "Default": "Server=(localdb)\\MSSQLLocalDB;Initial Catalog=BooksApp;Integrated Security=True;"
+  },
+  "AllowedOrigins": [
+    "http://localhost:65125" // Allows the web project to send requests
+  ]
+}
+
+// Worker Service
+{
+  "ConnectionStrings": {
+    "Default": "Server=(localdb)\\MSSQLLocalDB;Initial Catalog=BooksApp;Integrated Security=True;"
+  },
+  "BookApi": {
+    "UpsertJobUrl": "https://www.googleapis.com/books/v1/volumes", // API where the books are caming from, in this case Google Books
+    "SearchParameters": [ // Search strings that the job will get randomly to create the final URI to the Google Books API
+      "Harry", "Potter", "Secrets", "Phoenix",
+      "Percy", "Jackson", "Titans", "Curse",
+      "Clean", "Code", "Handbook", "Agile", "Software", "Craftsmanship",
+      "Clean", "Coder", "Code", "Conduct",
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+      "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+      "the", "of", "and", "to", "in", "for", "a", "is", "on", "with", "as", "by", "an", "at", "this",
+      "food", "sports", "travel", "health", "fitness", "lifestyle", "business", "finance", "technology", "science",
+      "Elon", "Musk", "Steve", "Jobs", "Bill", "Gates", "Mark", "Zuckerberg", "Jeff", "Bezos",
+      "Pedro", "Pascal", "Dwayne", "Johnson", "Tom", "Holland", "Chris", "Hemsworth", "Robert", "Pattinson"
+    ]
+  }
+}
+
+
+```
+
 
 <br/>
 
