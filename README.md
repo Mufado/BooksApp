@@ -1,9 +1,9 @@
 # BooksApp
-Clean Architecture + DDD project that saves and show data from Google Books API.
+Clean Architecture + DDD project that saves and displays data from Google Books API.
 ## Prerequisites
 
 Your machine has to have installed:
-- [Node Package Manager(NPM)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Node Package Manager (NPM)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - [.NET Framework](https://dotnet.microsoft.com/en-us/download) (version 10.0 or newer)
 
 > You can choose a package manager other than NPM if you want, but the [setup](#project-setup) can be different
@@ -12,7 +12,7 @@ Your machine has to have installed:
 You should be good to go by just running the `run.cmd` file, located at the root of the project.
 > All this batch file does is setup the database before executing all project applications
 
-After executing successfully running the batch file, you should see:
+After successfully running the batch file, you should see:
 
 **Web API**
 ```
@@ -74,12 +74,12 @@ info: Hangfire.Server.BackgroundServerProcess[0]
 ```
 >[!WARNING]
 > In case you have problems with the Web project, you may need to manually install the project dependencies.
-> To do that, open a CLI of your choice, track it to the `/booksapp.web` directory inside the project and run the command: `npm install`.
-> After that, you should be able to execute `run.cmd` normally, or `dotnet run --project "booksapp.web/booksapp.web.esproj"` if you want to execute the Web project only.
+> To do that, open a CLI of your choice, track it to the `/booksapp.web` directory inside the project and run the command: `npm install` (if you're using NPM).
+> After that, you should be able to execute `run.cmd` normally, or `dotnet run --project "booksapp.web/booksapp.web.esproj"` if you want to execute the Web project only (data won't be displayed if you don't run the Web API).
 
 ### Applications settings
 
-To ensure the applications are integrated correctly between them and the database, you can check the `appsettings.json` files. There are two settings, [one](BooksApp.WorkerService/appsettings.json) for the Worker Service and [other](BooksApp.WorkerService/appsettings.json) for the Web API:
+To ensure the applications are integrated correctly between them and the database, you can check the `appsettings.json` files. There are two setting files, [one](BooksApp.WorkerService/appsettings.json) for the Worker Service and [other](BooksApp.WorkerService/appsettings.json) for the Web API:
 ```json
 // Web API
 {
@@ -112,10 +112,11 @@ To ensure the applications are integrated correctly between them and the databas
     ]
   }
 }
-
-
 ```
 
+>[!NOTE]
+> The job that runs hourly will fetch data from Google Books API by using a random set of strings from `SearchParameters` to search books by title.
+> You can add/remove/change those parameters if you want to search different books informations.
 
 <br/>
 
